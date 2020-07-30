@@ -38,7 +38,7 @@ namespace cmra
       outgoing.message = message;
 
       #if UNITY_WEBGL
-          Debug.Log("SENDING MESSAGE FROM UNITY " + outgoing);
+          Debug.Log("SENDING MESSAGE FROM UNITY " + outgoing.ToString());
           MessageUnityOutgoing(JsonConvert.SerializeObject(outgoing));
 
       #endif

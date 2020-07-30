@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using cmra;
@@ -13,17 +14,22 @@ public class BrowserMessageSimulator : MonoBehaviour
   {
    messageDispatcher = GetComponent<cmra.MessageDispatcher>();   
    messageDispatcher.addMessageListener(new Subscriber("test", startTest));
-   messageDispatcher.addMessageListener(new Subscriber("test", endTest));
   }
 
 
   private void startTest(object parameters) {
     bogusParameter bg = JsonConvert.DeserializeObject<bogusParameter>(parameters.ToString());
     Debug.Log("startTest Called " + bg.message);
-    Debug.Log("Value " + bg.valueInt);
+    Debug.Log("It will last " + bg.valueInt + " seconds");
+    StartCoroutine(TestCoroutine(bg.valueInt));
+    
   }
-  private void endTest(object _parameters) {
-    Debug.Log("No Params Needed");
+  IEnumerator TestCoroutine(int value) {
+    yield return new WaitForSeconds(value);
+    endTest();
+  }
+  private void endTest() {
+    messageDispatcher.SendData(null, "endTest");
   }
 
   /// <summary>

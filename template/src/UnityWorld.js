@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Unity, { UnityContent } from 'react-unity-webgl';
-import { registerEvents } from "./unity_api";
+import { registerCommunicationHandler } from "./unity_api";
 import './UnityWorld.css';
 
 const UnityWorld = () => {
@@ -20,7 +20,7 @@ const UnityWorld = () => {
   useEffect(() => {
     if (unity) {
       console.log("unity", unity);
-      registerEvents(unity);
+      registerCommunicationHandler(unity);
     }
   }, [unity])
 

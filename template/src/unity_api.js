@@ -1,59 +1,51 @@
 
 
 
+let subscribers = new Array();
+let unity = null;
 
-export const registerEvents = (unityContent) => {
-  console.log(unityContent);
+
+
+const registerCommunicationHandler = (unityContent) => {
   unityContent.on("MessageFromUnity", message => {
-    console.log("message", message);
-    parseMessage(message);
+    console.log("recived message", message);
+    distributeMessage(JSON.parse(message));
   })
+  unity = unityContent;
 };
 
-const parseMessage = (message) => {
-  console.log("message", JSON.parse(message));
+
+
+const distributeMessage = (message) => {
+  subscribers.map(sub => {
+    if (sub.topic == message.topic) {
+      sub.callback(message);
+    }
+  })
 }
 
-export const selectObject = ({ name, rotation }) => {
-  sendUnityMessage(
-    {
-      topic: 'label_view',
-      message: {
-        api: 'change_object',
-        param: {
-          name,
-          rotation,
-        },
-      },
-    },
-    unity()
-  );
-};
+const addTopicListener = (subscriber) => {
+  subscribers.push(subscriber);
+}
 
-export const takeSnapshot = (id, label) => {
-  sendUnityMessageAsync(
-    {
-      topic: 'label_view',
-      message: {
-        api: 'get_image_view',
-      },
-    },
-    unity(), "img_raw"
-  ).then((response) => {
-    const binary = response.message.value;
-    addExample(binary, label);
-    store.dispatch(addImage(id, binary));
+const removeTopicListener = (subscriber) => {
+  subscribers = subscribers.filter(sub => sub == subscriber)
+}
+
+const sendUnityMessageAsync = (msg, resolver) =>
+  new Promise((resolve) => {
+    const responseSubscriber = {
+      topic: resolver, callback: (message) => {
+        removeTopicListener(responseSubscriber);
+        resolve(message);
+      }
+    }
+    addTopicListener(responseSubscriber);
+    sendUnityMessage(msg, unity);
   });
-};
 
-export const keyboardOverride = (keyevent) => {
-  sendUnityMessage(
-    {
-      topic: 'keyboard_override',
-      message: {
-        api: keyevent,
-      },
-    },
-    unity()
-  );
+const sendUnityMessage = (msg, unity) => {
+  const message = JSON.stringify(msg);
+  unity.send('UnityDispatcher', 'UnityMessengerDispatcher', message);
 };
+export { removeTopicListener, addTopicListener, registerCommunicationHandler, sendUnityMessageAsync, sendUnityMessage }
