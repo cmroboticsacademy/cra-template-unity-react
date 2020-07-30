@@ -4,7 +4,7 @@
 
 export const registerEvents = (unityContent) => {
   console.log(unityContent);
-  unityContent.on("MessageUnityOutgoing", message => {
+  unityContent.on("MessageFromUnity", message => {
     console.log("message", message);
     parseMessage(message);
   })
