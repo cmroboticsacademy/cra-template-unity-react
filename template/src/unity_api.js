@@ -15,7 +15,6 @@ const registerCommunicationHandler = (unityContent) => {
 };
 
 
-
 const distributeMessage = (message) => {
   subscribers.map(sub => {
     if (sub.topic == message.topic) {
@@ -35,7 +34,8 @@ const removeTopicListener = (subscriber) => {
 const sendUnityMessageAsync = (msg, resolver) =>
   new Promise((resolve) => {
     const responseSubscriber = {
-      topic: resolver, callback: (message) => {
+      topic: resolver, 
+      callback: (message) => {
         removeTopicListener(responseSubscriber);
         resolve(message);
       }
