@@ -38,7 +38,9 @@ namespace cmra
       outgoing.message = message;
 
       #if UNITY_WEBG
-          SendMessageFromUnity(JsonConvert.SerializeObject(outgoing));
+          Debug.Log("SENDING MESSAGE FROM UNITY " + outgoing);
+          MessageUnityOutgoing(JsonConvert.SerializeObject(outgoing));
+
       #endif
       #if UNITY_EDITOR
             Debug.Log("Will send " + outgoing.topic);

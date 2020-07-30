@@ -60,6 +60,9 @@ public class BrowserMessageSimulator : MonoBehaviour
         Debug.Log("outgoing message -> " + outgoing);
         messageDispatcher.UnityMessengerDispatcher("{\"topic\":\"test\",\"message\":{\"method\":\"endTest\"}}");
       }
+      if (Input.GetKeyDown(KeyCode.S)) {
+        messageDispatcher.SendData(null, "test");
+      }
   }
   struct bogusParameter {
     public string message;
