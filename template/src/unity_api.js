@@ -46,6 +46,6 @@ const sendUnityMessageAsync = (msg, resolver) =>
 
 const sendUnityMessage = (msg, unity) => {
   const message = JSON.stringify(msg);
-  unity.send('UnityDispatcher', 'UnityMessengerDispatcher', message);
+  unity.send('UnityMessenger', 'UnityMessengerDispatcher', message);
 };
 export { removeTopicListener, addTopicListener, registerCommunicationHandler, sendUnityMessageAsync, sendUnityMessage }
