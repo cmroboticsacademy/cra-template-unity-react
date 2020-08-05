@@ -23,7 +23,6 @@
       "webpack-cli": "^3.3.11"
   },
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
       "start": "nodemon server/index.js",
       "build": "webpack --mode production",
       "watch": "webpack --mode development --watch --progress"

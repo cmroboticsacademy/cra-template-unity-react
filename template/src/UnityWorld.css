@@ -1,11 +1,8 @@
-.unity-image-labeler {
-  height: 280px !important;
-  width: 300px !important;
+.unity-container {
+  height: 600px !important;
+  width: 960px !important;
   overflow: hidden;
 }
 
-.unity-image-labeler canvas {
-  height: 280px !important;
-  width: 300px !important;
-}
+
 

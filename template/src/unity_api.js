@@ -1,19 +1,13 @@
-
-
-
 let subscribers = new Array();
 let unity = null;
 
-
-
 const registerCommunicationHandler = (unityContent) => {
   unityContent.on("MessageFromUnity", message => {
-    console.log("recived message", message);
+    console.log("Unity -> Browser:", JSON.parse(message));
     distributeMessage(JSON.parse(message));
   })
   unity = unityContent;
 };
-
 
 const distributeMessage = (message) => {
   subscribers.map(sub => {
@@ -45,6 +39,7 @@ const sendUnityMessageAsync = (msg, resolver) =>
   });
 
 const sendUnityMessage = (msg, unity) => {
+  console.log("Browser -> Unity: ", msg);
   const message = JSON.stringify(msg);
   unity.send('UnityMessenger', 'UnityMessengerDispatcher', message);
 };

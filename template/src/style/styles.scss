@@ -3,3 +3,11 @@ body {
   color: #707070;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
+.test-button {
+  width: 200px;
+}
+.button-locked {   
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: gray;
+}
