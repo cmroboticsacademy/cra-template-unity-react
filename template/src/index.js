@@ -25,10 +25,8 @@ const Index = () => {
   
   const handleTest = async () => {
     const msg = { topic: "test", message: { method: "startTest", parameters: { i_testTime: 3, resolver: "endTest" } } }
-    console.log("Start Testing", msg);
     setTesting(true);
     await sendUnityMessageAsync(msg, "endTest").then((message) => {
-      console.log("Test Ended", message);
       setTesting(false);
     });
   }

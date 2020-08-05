@@ -35,7 +35,6 @@ public class MessageTesting : MonoBehaviour
   {
     // This test simply waits three seconds. It expects a resolver, but does not need one.
     yield return new WaitForSeconds(parameters.i_testTime);
-    Debug.Log("END COROUTINE. Has resolver? " + parameters.resolver);
     if (parameters.resolver != null) {
       ResolveMessage(parameters.resolver);
     }
