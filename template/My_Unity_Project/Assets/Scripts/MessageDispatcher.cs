@@ -8,15 +8,27 @@ using System.Runtime.InteropServices;
 
 namespace cmra
 {
+
+  // A subscriber is used to add an event listner.
+  public class Subscriber
+  {
+    public Subscriber(string topic, Del callback)
+    {
+      this.topic = topic;
+      this.callback = callback;
+    }
+    public string topic;
+    public delegate void Del(object list);
+    public Del callback;
+  }
+
   public class MessageDispatcher : MonoBehaviour
   {
+    [Tooltip("If true, Unity will send a unity_awake after the first frame")]
     public bool sendAwakeCall = true;
+    [Tooltip("The topic of the message that can be sent on the first frame")]
     public string awake_message = "unity_awake";
 
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
     void Start()
     {
       if (sendAwakeCall)
@@ -37,44 +49,33 @@ namespace cmra
 
       outgoing.message = message;
 
-      #if UNITY_WEBGL
-          Debug.Log("SENDING MESSAGE FROM UNITY " + outgoing.ToString());
-          MessageUnityOutgoing(JsonConvert.SerializeObject(outgoing));
-
-      #endif
-      #if UNITY_EDITOR
-            Debug.Log("Will send " + outgoing.topic);
-      #endif
+#if UNITY_WEBGL
+      MessageUnityOutgoing(JsonConvert.SerializeObject(outgoing));
+#endif
+#if UNITY_EDITOR
+      Debug.Log("No browser support for this message: " + outgoing.topic);
+#endif
     }
 
     public List<Subscriber> subscribers = new List<Subscriber>();
 
-
-    // Method that recieves Messages from the browser.
+    // This method gets called from the browser
     public void UnityMessengerDispatcher(string message)
     {
-
-      RecieveMessage(message);
-    }
-
-    public virtual void RecieveMessage(string objectString)
-    {
-      // serialize class and then send to subscribers.
-      MessageTopic messageTopic = JsonConvert.DeserializeObject<MessageTopic>(objectString);
-
+      MessageTopic messageTopic = JsonConvert.DeserializeObject<MessageTopic>(message);
       // loop through messages and call the subscribers with the matching topics.
       for (int i = 0; i < subscribers.Count; i++)
       {
+        // if the topics and the methods name match, call the method...
         if (subscribers[i].topic == messageTopic.topic &&
         subscribers[i].callback.Method.Name == messageTopic.message.method)
         {
           subscribers[i].callback(messageTopic.message.parameters);
         }
       }
-
     }
 
-    public virtual void addMessageListener(Subscriber subscriber)
+    public void addMessageListener(Subscriber subscriber)
     {
       subscribers.Add(subscriber);
     }
@@ -83,15 +84,5 @@ namespace cmra
     private static extern void MessageUnityOutgoing(string str);
 
   }
-  public class Subscriber
-  {
-    public Subscriber(string topic, Del callback)
-    {
-      this.topic = topic;
-      this.callback = callback;
-    }
-    public string topic;
-    public delegate void Del(object list);
-    public Del callback;
-  }
+
 }

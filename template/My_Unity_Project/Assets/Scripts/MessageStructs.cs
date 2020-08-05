@@ -1,7 +1,8 @@
 namespace cmra
 {
-  #region main structure
 
+  // These structs are the skelleton of how to send messages back and forth.
+  #region Incoming Message
   public struct MessageTopic
   {
     public string topic;
@@ -12,15 +13,15 @@ namespace cmra
     public string method;
     public object parameters;
   }
-
+  #endregion
+  #region Outgoing Message
   public struct MessageOutgoing
   {
     public string topic;
     public object message;
   }
-
-
   #endregion
+
 
 
 }
