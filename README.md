@@ -1,7 +1,7 @@
 # Unity-React-Template
 
 ## Installing
-1) Install [npx](https://www.npmjs.com/package/npx) 
+1) Install [node](https://nodejs.org/en/download/) & [npx](https://www.npmjs.com/package/npx) 
 2) Open a terminal and go to a folder where you want to download the template.
 3) Enter the command: `npx create-react-app my-unity-react-app --template @carnegie-mellon-robotics-academy/cra-template-unity-react`
 * "my-unity-react-app" is your new apps name. It must be lowercase with no spaces.
