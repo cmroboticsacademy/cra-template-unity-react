@@ -11,7 +11,7 @@ This template installs a Unity Project along side of a react application. The ro
 
 ## Getting Started
 ### Building Unity
-1) Open the unity project "My_Unity_Project" (located in "your app's folder"/dist/). You may need to upgrade or downgrade, that is fine.
+1) Open the unity project "My_Unity_Project" (located in "your app's folder"/My_Unity_Project). You may need to upgrade or downgrade, that is fine.
 2) Open the Build Settings menu.
 3) Click build. Name the game "unity_game" and save it in the dist folder (located in "your app's folder"/dist/)
 ### Building the app
