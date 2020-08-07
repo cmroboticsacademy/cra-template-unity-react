@@ -3,7 +3,7 @@
 ## Installing
 1) Install [npx](https://www.npmjs.com/package/npx) 
 2) Open a terminal and go to a folder where you want to download the template.
-3) Enter the command: `npx create-react-app < your app name > --template @carnegie-mellon-robotics-academy/cra-template-react-app`
+3) Enter the command:(your app name should be in all lowercase) `npx create-react-app < your app name > --template @carnegie-mellon-robotics-academy/cra-template-react-app`
 
 ### Project Environment
 This template installs a Unity Project along side of a react application. The root of the project is meant to be a workspace for your IDE.
