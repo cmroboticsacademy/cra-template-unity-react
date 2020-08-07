@@ -1,5 +1,5 @@
 {
-    "name": "my-react-app",
+    "name": "@carnegie-mellon-robotics-academy/cra-template-unity-react",
     "version": "1.0.0",
     "description": "",
     "main": "template.json",
@@ -10,7 +10,7 @@
         "dev": "webpack --mode development --watch --progress"
     },
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "dependencies": {
         "express": "^4.17.1",
         "react": "^16.13.0",
